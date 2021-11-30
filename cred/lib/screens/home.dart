@@ -1,3 +1,4 @@
+import 'package:cred/screens/custom_widgets/date_view_widget.dart';
 import 'package:cred/screens/custom_widgets/view_widget.dart';
 import 'package:cred/util/custom_colors.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,24 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  List<String> categoryTitle = ['Burned', 'Lifted', 'Training'];
+  List<IconData> categoryIcon = [
+    Icons.bolt,
+    Icons.h_mobiledata,
+    Icons.schedule
+  ];
+  List<String> categorysubTitle = ['12.6k', '270k', '13'];
+  List<String> categorysubAppend = ['cal', 'kg', 'weeks'];
+  List<Color> categoryIconColor = [
+    CustomColors.mainOrange,
+    CustomColors.mainPurple,
+    CustomColors.lightBlue,
+  ];
+  List<Color> categorybackColor = [
+    CustomColors.mainOrange.withOpacity(0.08),
+    CustomColors.mainPurple.withOpacity(0.08),
+    CustomColors.lightBlue.withOpacity(0.08),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +37,7 @@ class _HomeViewState extends State<HomeView> {
       body: Container(
         margin: EdgeInsets.fromLTRB(20.w, 60.h, 20.w, 0.h),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               child: Column(
@@ -130,11 +150,24 @@ class _HomeViewState extends State<HomeView> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('72.4',
-                                style: TextStyle(
-                                    color: CustomColors.mainBlack,
-                                    fontSize: 40.sp,
-                                    fontWeight: FontWeight.bold)),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: '72.4',
+                                      style: TextStyle(
+                                          color: CustomColors.mainBlack,
+                                          fontSize: 40.sp,
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                    text: 'kg',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -149,11 +182,24 @@ class _HomeViewState extends State<HomeView> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('7.6kg',
-                                style: TextStyle(
-                                    color: CustomColors.mainBlack,
-                                    fontSize: 25.sp,
-                                    fontWeight: FontWeight.bold)),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: '7.6',
+                                      style: TextStyle(
+                                          color: CustomColors.mainBlack,
+                                          fontSize: 25.sp,
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                    text: 'kg',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ),
                             SizedBox(
                               height: 8.h,
                             ),
@@ -184,15 +230,31 @@ class _HomeViewState extends State<HomeView> {
                 ],
               ),
             ),
-            SizedBox(height: 20.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CategoryWidget(),
-                CategoryWidget(),
-                CategoryWidget(),
-              ],
-            )
+            SizedBox(height: 50.h),
+            SizedBox(
+              height: 150,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categoryTitle.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 25, left: 25),
+                      child: CategoryWidget(
+                          title: categoryTitle[index],
+                          sub: categorysubTitle[index],
+                          iconColor: categoryIconColor[index],
+                          backgroungColor: categorybackColor[index],
+                          subAppend: categorysubAppend[index],
+                          icon: categoryIcon[index]),
+                    );
+                  }),
+            ),
+            SizedBox(
+              height: 30.h,
+            ),
+            DateViewWidget(),
           ],
         ),
       ),
