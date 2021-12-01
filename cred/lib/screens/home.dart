@@ -1,3 +1,4 @@
+import 'package:cred/screens/custom_widgets/animated_pop_up.dart';
 import 'package:cred/screens/custom_widgets/date_view_widget.dart';
 import 'package:cred/screens/custom_widgets/view_widget.dart';
 import 'package:cred/util/custom_colors.dart';
@@ -28,233 +29,277 @@ class _HomeViewState extends State<HomeView> {
   List<Color> categorybackColor = [
     CustomColors.mainOrange.withOpacity(0.08),
     CustomColors.mainPurple.withOpacity(0.08),
-    CustomColors.lightBlue.withOpacity(0.08),
+    CustomColors.lightBlue.withOpacity(0.1),
   ];
+  bool checkBackground = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      checkBackground = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Container(
-        margin: EdgeInsets.fromLTRB(20.w, 60.h, 20.w, 0.h),
+        color: checkBackground ? Colors.white : Colors.grey.withOpacity(0.1),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+            checkBackground
+                ? Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, top: 50, right: 20),
+                    child: Container(
+                      child: Column(
                         children: [
-                          CircleAvatar(
-                            radius: 20.r,
-                            backgroundColor: Colors.blue,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                      radius: 20.r,
+                                      backgroundColor: CustomColors.lightBlue
+                                          .withOpacity(0.1)),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Text(
+                                    'Hello David',
+                                    style: TextStyle(
+                                        color: CustomColors.mainBlack,
+                                        fontSize: 16.sp),
+                                  )
+                                ],
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    checkBackground = !checkBackground;
+                                  });
+                                },
+                                child: Container(
+                                  height: 40.w,
+                                  width: 40.w,
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.withOpacity(0.6),
+                                            blurRadius: 15.0,
+                                            offset: Offset(0.0, 0.75))
+                                      ],
+                                      color: CustomColors.mainOrange,
+                                      borderRadius:
+                                          BorderRadius.circular(15.r)),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.local_fire_department,
+                                      color: CustomColors.backgroundColor,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                           SizedBox(
-                            width: 10.w,
+                            height: 20.h,
                           ),
-                          Text(
-                            'Hello David',
-                            style: TextStyle(
-                                color: CustomColors.mainBlack, fontSize: 16.sp),
-                          )
-                        ],
-                      ),
-                      Container(
-                        height: 40.w,
-                        width: 40.w,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.withOpacity(0.6),
-                                  blurRadius: 15.0,
-                                  offset: Offset(0.0, 0.75))
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Stats',
+                                    style: TextStyle(
+                                        color: CustomColors.mainBlack,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 35.sp),
+                                  ),
+                                  Container(
+                                    color: CustomColors.lightBlue,
+                                    height: 4.h,
+                                    width: 20.w,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                width: 20.w,
+                              ),
+                              Text(
+                                'Muscles',
+                                style: TextStyle(
+                                    color:
+                                        CustomColors.mainBlack.withOpacity(0.5),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30.sp),
+                              ),
                             ],
-                            color: CustomColors.mainOrange,
-                            borderRadius: BorderRadius.circular(15.r)),
-                        child: Center(
-                          child: Icon(
-                            Icons.whatshot,
-                            color: CustomColors.backgroundColor,
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Stats',
-                            style: TextStyle(
-                                color: CustomColors.mainBlack,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 35.sp),
+                          SizedBox(
+                            height: 30.h,
                           ),
-                          Container(
-                            color: CustomColors.lightBlue,
-                            height: 4.h,
-                            width: 20.w,
-                          )
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                '58',
+                                style: TextStyle(
+                                  color: CustomColors.mainBlack,
+                                  fontSize: 60.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'workouts Completed',
+                                style: TextStyle(
+                                  color:
+                                      CustomColors.mainBlack.withOpacity(0.5),
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 40.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          TextSpan(
+                                              text: '72.4',
+                                              style: TextStyle(
+                                                  color: CustomColors.mainBlack,
+                                                  fontSize: 40.sp,
+                                                  fontWeight: FontWeight.bold)),
+                                          TextSpan(
+                                            text: 'kg',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text('Current Weight',
+                                        style: TextStyle(
+                                          color: CustomColors.mainBlack
+                                              .withOpacity(0.5),
+                                          fontSize: 13.sp,
+                                        )),
+                                  ]),
+                              Container(
+                                  height: 60.h,
+                                  width: 0.5.w,
+                                  color: Colors.grey),
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          TextSpan(
+                                              text: '7.6',
+                                              style: TextStyle(
+                                                  color: CustomColors.mainBlack,
+                                                  fontSize: 25.sp,
+                                                  fontWeight: FontWeight.bold)),
+                                          TextSpan(
+                                            text: 'kg',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                            width: 40.w,
+                                            height: 2.h,
+                                            color: CustomColors.mainOrange),
+                                        Container(
+                                            width: 30.w,
+                                            height: 2.h,
+                                            color: Colors.grey)
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text('Left to Gain',
+                                        style: TextStyle(
+                                          color: CustomColors.mainBlack
+                                              .withOpacity(0.5),
+                                          fontSize: 13.sp,
+                                        )),
+                                  ])
+                            ],
+                          ),
                         ],
                       ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      Text(
-                        'Muscles',
-                        style: TextStyle(
-                            color: CustomColors.mainBlack.withOpacity(0.5),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30.sp),
-                      ),
-                    ],
+                    ),
+                  )
+                : AnimatedPopUp(
+                    checked: checkBackground == false ? checkBackground : true,
                   ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        '58',
-                        style: TextStyle(
-                          color: CustomColors.mainBlack,
-                          fontSize: 60.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'workouts Completed',
-                        style: TextStyle(
-                          color: CustomColors.mainBlack.withOpacity(0.5),
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 20.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: '72.4',
-                                      style: TextStyle(
-                                          color: CustomColors.mainBlack,
-                                          fontSize: 40.sp,
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(
-                                    text: 'kg',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text('Current Weight',
-                                style: TextStyle(
-                                  color:
-                                      CustomColors.mainBlack.withOpacity(0.5),
-                                  fontSize: 13.sp,
-                                )),
-                          ]),
-                      Container(height: 60.h, width: 0.5.w, color: Colors.grey),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: '7.6',
-                                      style: TextStyle(
-                                          color: CustomColors.mainBlack,
-                                          fontSize: 25.sp,
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(
-                                    text: 'kg',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 8.h,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                    width: 40.w,
-                                    height: 2.h,
-                                    color: CustomColors.mainOrange),
-                                Container(
-                                    width: 30.w,
-                                    height: 2.h,
-                                    color: Colors.grey)
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Text('Current Weight',
-                                style: TextStyle(
-                                  color:
-                                      CustomColors.mainBlack.withOpacity(0.5),
-                                  fontSize: 13.sp,
-                                )),
-                          ])
-                    ],
-                  ),
-                ],
-              ),
-            ),
             SizedBox(height: 50.h),
-            SizedBox(
-              height: 150,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categoryTitle.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 25, left: 25),
-                      child: CategoryWidget(
-                          title: categoryTitle[index],
-                          sub: categorysubTitle[index],
-                          iconColor: categoryIconColor[index],
-                          backgroungColor: categorybackColor[index],
-                          subAppend: categorysubAppend[index],
-                          icon: categoryIcon[index]),
-                    );
-                  }),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SizedBox(
+                height: 150,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categoryTitle.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 25, left: 25),
+                        child: CategoryWidget(
+                            title: categoryTitle[index],
+                            sub: categorysubTitle[index],
+                            iconColor: categoryIconColor[index],
+                            backgroungColor: categorybackColor[index],
+                            subAppend: categorysubAppend[index],
+                            icon: categoryIcon[index]),
+                      );
+                    }),
+              ),
             ),
             SizedBox(
               height: 30.h,
             ),
-            DateViewWidget(),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  checkBackground = !checkBackground;
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: DateViewWidget(),
+              ),
+            ),
           ],
         ),
       ),
