@@ -5,6 +5,8 @@ import 'package:cred/util/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'custom_widgets/helpers.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -13,34 +15,17 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<String> categoryTitle = ['Burned', 'Lifted', 'Training'];
-  List<IconData> categoryIcon = [
-    Icons.bolt,
-    Icons.h_mobiledata,
-    Icons.schedule
-  ];
-  List<String> categorysubTitle = ['12.6k', '270k', '13'];
-  List<String> categorysubAppend = ['cal', 'kg', 'weeks'];
+  bool checkBackground = true;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   List<Color> categoryIconColor = [
     CustomColors.mainOrange,
     CustomColors.mainPurple,
     CustomColors.lightBlue,
   ];
-  List<Color> categorybackColor = [
-    CustomColors.mainOrange.withOpacity(0.08),
-    CustomColors.mainPurple.withOpacity(0.08),
-    CustomColors.lightBlue.withOpacity(0.1),
-  ];
-  bool checkBackground = false;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setState(() {
-      checkBackground = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +49,8 @@ class _HomeViewState extends State<HomeView> {
                                   CircleAvatar(
                                       radius: 20.r,
                                       backgroundColor: CustomColors.lightBlue
-                                          .withOpacity(0.1)),
+                                          .withOpacity(0.1),
+                                      child: Icon(Icons.person)),
                                   SizedBox(
                                     width: 10.w,
                                   ),
@@ -88,9 +74,9 @@ class _HomeViewState extends State<HomeView> {
                                   decoration: BoxDecoration(
                                       boxShadow: [
                                         BoxShadow(
-                                            color: Colors.grey.withOpacity(0.6),
-                                            blurRadius: 15.0,
-                                            offset: Offset(0.0, 0.75))
+                                            color: Colors.grey.withOpacity(0.9),
+                                            blurRadius: 4.0,
+                                            offset: Offset(1, 3.75))
                                       ],
                                       color: CustomColors.mainOrange,
                                       borderRadius:
@@ -182,7 +168,7 @@ class _HomeViewState extends State<HomeView> {
                                               text: '72.4',
                                               style: TextStyle(
                                                   color: CustomColors.mainBlack,
-                                                  fontSize: 40.sp,
+                                                  fontSize: 35.sp,
                                                   fontWeight: FontWeight.bold)),
                                           TextSpan(
                                             text: 'kg',
@@ -240,7 +226,7 @@ class _HomeViewState extends State<HomeView> {
                                         Container(
                                             width: 30.w,
                                             height: 2.h,
-                                            color: Colors.grey)
+                                            color: Colors.grey.shade300)
                                       ],
                                     ),
                                     SizedBox(
@@ -260,7 +246,11 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   )
                 : AnimatedPopUp(
-                    checked: checkBackground == false ? checkBackground : true,
+                    checked: () {
+                      setState(() {
+                        checkBackground = !checkBackground;
+                      });
+                    },
                   ),
             SizedBox(height: 50.h),
             Padding(
@@ -271,17 +261,18 @@ class _HomeViewState extends State<HomeView> {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: categoryTitle.length,
+                    itemCount: HelperClass().categoryTitle.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 25, left: 25),
                         child: CategoryWidget(
-                            title: categoryTitle[index],
-                            sub: categorysubTitle[index],
+                            title: HelperClass().categoryTitle[index],
+                            sub: HelperClass().categorysubTitle[index],
                             iconColor: categoryIconColor[index],
-                            backgroungColor: categorybackColor[index],
-                            subAppend: categorysubAppend[index],
-                            icon: categoryIcon[index]),
+                            backgroungColor:
+                                HelperClass().categorybackColor[index],
+                            subAppend: HelperClass().categorysubAppend[index],
+                            icon: HelperClass().categoryIcon[index]),
                       );
                     }),
               ),
@@ -289,16 +280,9 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: 30.h,
             ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  checkBackground = !checkBackground;
-                });
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: DateViewWidget(),
-              ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: DateViewWidget(),
             ),
           ],
         ),

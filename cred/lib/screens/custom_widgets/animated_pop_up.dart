@@ -1,22 +1,19 @@
+import 'package:cred/screens/custom_widgets/helpers.dart';
 import 'package:cred/util/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AnimatedPopUp extends StatefulWidget {
-  bool? checked;
+  final Function? checked;
 
-  AnimatedPopUp({Key? key, this.checked}) : super(key: key);
+  const AnimatedPopUp({Key? key, this.checked}) : super(key: key);
 
   @override
   State<AnimatedPopUp> createState() => _AnimatedPopUpState();
 }
 
 class _AnimatedPopUpState extends State<AnimatedPopUp> {
-  List<Color> categoryIconColor = [
-    CustomColors.mainOrange,
-    CustomColors.mainPurple,
-    CustomColors.lightBlue,
-  ];
+
   @override
   void initState() {
     super.initState();
@@ -82,10 +79,7 @@ class _AnimatedPopUpState extends State<AnimatedPopUp> {
                 Spacer(),
                 TextButton.icon(
                     onPressed: () {
-                      print('object');
-                      setState(() {
-                        widget.checked == false;
-                      });
+                      widget.checked!();
                     },
                     icon: Icon(
                       Icons.launch,
@@ -107,7 +101,7 @@ class _AnimatedPopUpState extends State<AnimatedPopUp> {
           child: Padding(
             padding: const EdgeInsets.only(top: 100),
             child: ListView.builder(
-                itemCount: categoryIconColor.length,
+                itemCount: HelperClass().categoryIconColor.length,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
@@ -135,7 +129,7 @@ class _AnimatedPopUpState extends State<AnimatedPopUp> {
                             width: 50,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15.r),
-                              color: categoryIconColor[index],
+                              color: HelperClass().categoryIconColor[index],
                             ),
                             child: Center(
                               child: Column(
@@ -152,7 +146,7 @@ class _AnimatedPopUpState extends State<AnimatedPopUp> {
                                       height: 10.h,
                                     ),
                                     Text(
-                                      '17',
+                                      HelperClass().datetime[index],
                                       style: TextStyle(
                                           color: CustomColors.backgroundColor,
                                           fontSize: 15,
@@ -197,7 +191,7 @@ class _AnimatedPopUpState extends State<AnimatedPopUp> {
                                 height: 10.h,
                               ),
                               Text(
-                                'Recent: Chest & Legs',
+                                HelperClass().dateTitle[index],
                                 style: TextStyle(
                                     color: CustomColors.mainBlack,
                                     fontSize: 15.sp,
@@ -207,7 +201,7 @@ class _AnimatedPopUpState extends State<AnimatedPopUp> {
                                 height: 6.h,
                               ),
                               Text(
-                                '8 Exercise',
+                                HelperClass().dateSibTitle[index],
                                 style: TextStyle(
                                     color:
                                         CustomColors.mainBlack.withOpacity(0.6),

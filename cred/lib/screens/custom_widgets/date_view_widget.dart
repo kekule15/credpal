@@ -2,9 +2,17 @@ import 'package:cred/util/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DateViewWidget extends StatelessWidget {
+import 'helpers.dart';
+
+class DateViewWidget extends StatefulWidget {
   const DateViewWidget({Key? key}) : super(key: key);
 
+  @override
+  State<DateViewWidget> createState() => _DateViewWidgetState();
+}
+
+class _DateViewWidgetState extends State<DateViewWidget> {
+  int currentDateSchedule = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +24,7 @@ class DateViewWidget extends StatelessWidget {
             width: 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.r),
-              color: CustomColors.lightBlue,
+              color: HelperClass().categoryIconColor[currentDateSchedule],
             ),
             child: Center(
               child: Column(
@@ -32,7 +40,7 @@ class DateViewWidget extends StatelessWidget {
                       height: 10.h,
                     ),
                     Text(
-                      '17',
+                      HelperClass().datetime[currentDateSchedule],
                       style: TextStyle(
                           color: CustomColors.backgroundColor,
                           fontSize: 15,
@@ -76,7 +84,7 @@ class DateViewWidget extends StatelessWidget {
                 height: 10.h,
               ),
               Text(
-                'Recent: Chest & Legs',
+                HelperClass().dateTitle[currentDateSchedule],
                 style: TextStyle(
                     color: CustomColors.mainBlack,
                     fontSize: 15.sp,
@@ -86,7 +94,7 @@ class DateViewWidget extends StatelessWidget {
                 height: 6.h,
               ),
               Text(
-                '8 Exercise',
+                HelperClass().dateSibTitle[currentDateSchedule],
                 style: TextStyle(
                     color: CustomColors.mainBlack.withOpacity(0.6),
                     fontSize: 15.sp,
@@ -94,18 +102,29 @@ class DateViewWidget extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            height: 80.h,
-            width: 50.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.r),
-              color: Colors.grey.withOpacity(0.4),
+          InkWell(
+            onTap: () {
+              incrementDateSchedule();
+            },
+            child: Container(
+              height: 80.h,
+              width: 50.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.r),
+                color: Colors.grey.withOpacity(0.4),
+              ),
+              child: Center(child: Icon(Icons.keyboard_arrow_right)),
             ),
-            child: Center(child: Icon(Icons.keyboard_arrow_right)),
           )
         ],
       ),
-   
     );
+  }
+
+  incrementDateSchedule() async {
+    setState(() {
+      currentDateSchedule =
+          (currentDateSchedule + 1) % HelperClass().dateTitle.length;
+    });
   }
 }

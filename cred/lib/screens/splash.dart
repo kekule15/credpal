@@ -10,11 +10,23 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _controller;
   @override
   void initState() {
     _transitionToNextPageAfterSplash();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+
+    _controller!.forward();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    super.dispose();
   }
 
   _transitionToNextPageAfterSplash() async {
@@ -33,13 +45,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('CredPal Test',
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold)),
+        child: RotationTransition(
+          turns: Tween(begin: 0.0, end: 1.0).animate(_controller!.view),
+          child: Text('CredPal Test',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold)),
+        ),
       ),
     );
   }

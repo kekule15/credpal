@@ -27,7 +27,7 @@ class CategoryWidget extends StatelessWidget {
       //mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
-          radius: 30.r,
+          radius: 25.r,
           backgroundColor: backgroungColor!.withOpacity(0.2),
           child: Icon(
             icon!,
